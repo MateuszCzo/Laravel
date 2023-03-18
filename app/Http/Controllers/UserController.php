@@ -18,7 +18,7 @@ class UserController extends Controller
     public function index(): Application|Factory|View
     {
         return view('users.index', [
-            'users' => User::all()
+            'users' => User::paginate(3)
         ]);
     }
 
