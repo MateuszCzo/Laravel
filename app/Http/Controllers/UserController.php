@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\Foundation\Application;
+use App\Exceptions\UserNotDeletedException;
+use Illuminate\Http\JsonResponse;
+use Exception;
 
 class UserController extends Controller
 {
@@ -66,15 +69,21 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      * 
-     * @param int $id
-     * @return Illuminate\Http\Response
+     * @param User $user
+     * @return JsonResponse
      */
-    public function destroy(int $id)
+    public function destroy(User $user): JsonResponse
     {
-        $flight = User::find($id);
-        $flight->delete();
-        return response()->json([
-            'status' => 'success'
-        ]);
+        try {
+            $user->delete($user);
+            return response()->json([
+                'status' => 'success',
+            ]);
+        } catch(Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'wystapil blad przy usuwanie uzytkownika',
+            ])->setStatusCode(500);
+        }
     }
 }

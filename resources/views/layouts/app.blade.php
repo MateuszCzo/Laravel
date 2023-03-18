@@ -76,9 +76,9 @@
     </div>
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript">
         @yield('javascript')
     </script>
+    @vite(['resources/js/delete.js'])
 </body>
 </html>

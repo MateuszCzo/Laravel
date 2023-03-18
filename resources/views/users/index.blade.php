@@ -32,19 +32,5 @@
 </div>
 @endsection
 @section('javascript')
-    $(function() {
-        $('.delete').click(function() {
-            $.ajax({
-                method: 'DELETE',
-                url: 'http://shop.test/users/' + $(this).data('id')
-            })
-            .done(function(response) {
-                alert('Success');
-                window.location.reload();
-            })
-            .fail(function() {
-                alert('Error');
-            });
-        });
-    });
+    const deleteUrl = "{{ url('users') }}/";
 @endsection
