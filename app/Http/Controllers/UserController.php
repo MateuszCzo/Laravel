@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Contracts\View\Factory;
@@ -64,9 +65,16 @@ class UserController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * 
+     * @param int $id
+     * @return Illuminate\Http\Response
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
-        //
+        $flight = User::find($id);
+        $flight->delete();
+        return response()->json([
+            'status' => 'success'
+        ]);
     }
 }
