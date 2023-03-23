@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpsertProductRequest;
 use Exception;
+use App\Models\ProductCategory;
 
 class ProductController extends Controller
 {
@@ -30,11 +31,11 @@ class ProductController extends Controller
      * @param Product $product
      * @return View
      */
-    public function create(Product $product): View
+    public function create(): View
     {
         return view('products.create', [
-            'product' => $product
-        ]);
+            'categories' => ProductCategory::all()
+        ]); 
     }
 
     /**
@@ -79,7 +80,8 @@ class ProductController extends Controller
     public function edit(Product $product): View
     {
         return view('products.edit', [
-            'product' => $product
+            'product' => $product,
+            'categories' => ProductCategory::all()
         ]);
     }
 

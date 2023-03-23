@@ -21,6 +21,7 @@
                     <th scope="col">Opis</th>
                     <th scope="col">Ilość</th>
                     <th scope="col">Cena</th>
+                    <th scope="col">Kategoria</th>
                     <th scope="col">Akcje</th>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@
                         <td>{{ $product->description }}</td>
                         <td>{{ $product->amount }}</td>
                         <td>{{ $product->price }}</td>
+                        <td>@if($product->hasCaregory()) {{ $product->category->name }} @endif</td>
                         <td>
                             <a class="btn btn-primary btn-sm" href="{{ route('products.show', $product->id) }}">P</a>
                             <a class="btn btn-success btn-sm" href="{{ route('products.edit', $product->id) }}">E</a>
