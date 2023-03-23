@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use App\Exceptions\UserNotDeletedException;
 use Illuminate\Http\JsonResponse;
 use Exception;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -76,6 +77,7 @@ class UserController extends Controller
     {
         try {
             $user->delete($user);
+            Session::flash('status', 'User deleted!');
             return response()->json([
                 'status' => 'success',
             ]);

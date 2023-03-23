@@ -55,7 +55,7 @@ class ProductController extends Controller
             $product->image_path = null;
         }
         $product->save();
-        return redirect(route('products.index'));
+        return redirect(route('products.index'))->with('status', 'Product stored!');
     }
 
     /**
@@ -102,7 +102,7 @@ class ProductController extends Controller
             $product->image_path = null;
         }
         $product->save();
-        return redirect(route('products.index'));
+        return redirect(route('products.index'))->with('status', 'Product updated!');
     }
 
     /**
@@ -115,6 +115,7 @@ class ProductController extends Controller
     {
         try {
             $product->delete($product);
+            Session::flash('status', 'Product deleted!');
             return response()->json([
                 'status' => 'success',
             ]);

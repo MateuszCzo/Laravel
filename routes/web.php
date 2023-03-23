@@ -26,6 +26,7 @@ Auth::routes(['verify' => true]);
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::resource('products', ProductController::class);
+    
     Route::get('/users/list', [UserController::class, 'index']);
     Route::delete('/users/{user}', [UserController::class, 'destroy']);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
