@@ -5,8 +5,9 @@ window.onload = () => {
         getProducts($(this).text());
     });
 
-    $('a#search').click(function() {
-        getProducts($('a.products-actual-count').text());
+    $('a#search').click(function(event) {
+        event.preventDefault();
+        getProducts($('a.products-actual-count').first().text());
     })
 
     function getProducts(paginate) {
