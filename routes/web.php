@@ -18,25 +18,27 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [WelcomeController::class, 'index']);
+
+
+Auth::routes(['verify' => true]);
+
+
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::resource('products', ProductController::class);
+    Route::get('/users/list', [UserController::class, 'index']);
+    Route::delete('/users/{user}', [UserController::class, 'destroy']);
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
+/*
+Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('auth')->middleware('varified');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth')->middleware('varified');
+Route::post('/products', [ProductController::class, 'store'])->name('products.store')->middleware('auth')->middleware('varified');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show')->middleware('auth')->middleware('varified');
+Route::get('/products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit')->middleware('auth')->middleware('varified');
+Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('auth')->middleware('varified');
+Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('auth')->middleware('varified');
+*/
+
 Route::get('/hello', [HelloWorldController::class, 'show']);
-
-Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Route::get('/users/list', [UserController::class, 'index'])->middleware('auth');
-Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('auth');
-
-Route::get('/products', [ProductController::class, 'index'])->name('products.index')->middleware('auth');
-Route::get('/products/create', [ProductController::class, 'create'])->name('products.create')->middleware('auth');
-Route::post('/products', [ProductController::class, 'store'])->name('products.store')->middleware('auth');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show')->middleware('auth');
-Route::get('/products/edit/{product}', [ProductController::class, 'edit'])->name('products.edit')->middleware('auth');
-Route::post('/products/{product}', [ProductController::class, 'update'])->name('products.update')->middleware('auth');
-Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('auth');
-
-Route::get('/', [WelcomeController::class, 'index']);
