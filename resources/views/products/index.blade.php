@@ -5,11 +5,11 @@
     @include('helpers.flash-messages')
     <div class="row">
         <div class="col-6">
-            <h1>Lista produktów</h1>
+            <h1><i class="bi bi-card-list"></i> Lista produktów</h1>
         </div>
         <div class="col-6 d-flex flex-row-reverse">
             <a href="{{ route('products.create') }}">
-                <button type="button" class="float-right btn btn-primary">Dodaj</button>
+                <button type="button" class="float-right btn btn-primary"><i class="bi bi-plus" style="font-size: 1.5rem;"></i></button>
             </a>
         </div>
     </div>
@@ -36,9 +36,9 @@
                         <td>{{ $product->price }}</td>
                         <td>@if($product->hasCaregory()) {{ $product->category->name }} @endif</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" href="{{ route('products.show', $product->id) }}">P</a>
-                            <a class="btn btn-success btn-sm" href="{{ route('products.edit', $product->id) }}">E</a>
-                            <button class="btn btn-danger btn-sm delete" data-id="{{ $product->id }}">X</button>
+                            <a class="btn btn-primary btn-sm" href="{{ route('products.show', $product->id) }}"><i class="bi bi-search"></i></a>
+                            <a class="btn btn-success btn-sm" href="{{ route('products.edit', $product->id) }}"><i class="bi bi-pencil-square"></i></a>
+                            <button class="btn btn-danger btn-sm delete" data-id="{{ $product->id }}"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                 @endforeach
