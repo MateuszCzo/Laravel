@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Exception;
 use App\Models\ProductCategory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class WelcomeController extends Controller
 {
@@ -39,6 +40,7 @@ class WelcomeController extends Controller
             'products' => $query->paginate($paginate),
             'categories' => ProductCategory::orderBy('name', 'ASC')->get(),
             'defaultImage' => config('shop.defaultImage'),
+            'isGuest' => Auth::guest(),
         ]);
     }
 }

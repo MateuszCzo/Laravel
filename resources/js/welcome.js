@@ -1,28 +1,5 @@
 window.onload = () => {
-    $('button.add-cart-button').click(function(event) {
-        $.ajax({
-            method: 'POST',
-            url: WELCOME_DATA.addToCart + $(this).data('id')
-        })
-        .done(function() {
-            Swal.fire({
-                title: 'Brawo!',
-                text : 'Produkt dodany do koszyka',
-                icon: 'success',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                cancelButtonText: '<i class="bi bi-basket3"></i> Kontynuuj zakupy',
-                confirmButtonText: '<i class="bi bi-cart4"></i> Przejdz do koszyka',
-            }).then((result) => {
-                if (!result.isConfirmed) return;
-                alert('OK');
-            });
-        })
-        .fail(function() { 
-            Swal.fire('Oops...', 'Wystapil blad', 'error');
-        })
-    })
+    $('button.add-cart-button').click(addProductToCart);
 
     $('div.products-count a').click(function(event) {
         event.preventDefault();
@@ -58,18 +35,52 @@ window.onload = () => {
                                             '<i>PLN ' + product.price + '</i>' +
                                         '</h5>' +
                                     '</div>' +
+                                    '<button class="btn btn-success btn-sm add-cart-button" ' + getDisabled() + ' data-id="' + product.id + '" >' +
+                                        '<i class="bi bi-cart4" ></i> Dodaj do koszyka' +
+                                    '</button>' +
                                 '</div>' +
-                            '</div>'
+                            '</div>';
                 $('div#products-wrapper').append(html);
-            })
+            });
+            $('button.add-cart-button').click(addProductToCart);
         })
         .fail(function(response) {
             alert("Error");
         });
     }
 
+    function addProductToCart() {
+        $.ajax({
+            method: 'POST',
+            url: WELCOME_DATA.addToCart + $(this).data('id')
+        })
+        .done(function() {
+            Swal.fire({
+                title: 'Brawo!',
+                text: 'Produkt dodany do koszyka',
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: '<i class="bi bi-basket3"></i> Kontynuuj zakupy',
+                confirmButtonText: '<i class="bi bi-cart4"></i> Przejdz do koszyka',
+            }).then((result) => {
+                if (!result.isConfirmed) return;
+                window.location = WELCOME_DATA.listCart;
+            });
+        })
+        .fail(function() { 
+            Swal.fire('Oops...', 'Wystapil blad', 'error');
+        })
+    }
+
     function getImage(product) {
         if(!!product.image_path) return WELCOME_DATA.storagePath + product.image_path;
         return WELCOME_DATA.defaultImage;
+    }
+
+    function getDisabled() {
+        if(WELCOME_DATA.isGuest) return ' disabled';
+        return '';
     }
 }
