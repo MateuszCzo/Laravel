@@ -104,7 +104,9 @@
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md-6">
                                 @if(!is_null($product->image_path))
-                                    <img src="{{ @asset('storage/' . $product->image_path) }}" class="w-100" alt="Zdjęcie produktu">
+                                    <a href="{{ route('products.downloadImage', $product->id) }}">
+                                        <img src="{{ @asset('storage/' . $product->image_path) }}" class="w-100" alt="Zdjęcie produktu">
+                                    </a>
                                 @endif
                             </div>
                         </div>
