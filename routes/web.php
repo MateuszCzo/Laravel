@@ -8,6 +8,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 });
 
 Route::get('/hello', [HelloWorldController::class, 'show']);
+
+Route::get('/payment/status', [PaymentController::class, 'status']);
+
